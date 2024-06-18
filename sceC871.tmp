@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://crtjpfisfrjnc"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_cgggy"]
+[ext_resource type="PackedScene" uid="uid://ojqaf5phpcgm" path="res://scenes/player.tscn" id="1_ovhav"]
+[ext_resource type="Texture2D" uid="uid://b0n865tnnlomj" path="res://sprites/seamless-green-grass-texture-with-old-stone-tiles-vector.jpg" id="1_w51da"]
+[ext_resource type="PackedScene" uid="uid://dr1qrh8u2kybs" path="res://enemy.tscn" id="3_80746"]
+
+[node name="world01" type="Node2D"]
+script = ExtResource("1_cgggy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(586, 501)
+scale = Vector2(0.615, 0.615)
+texture = ExtResource("1_w51da")
+
+[node name="Player" parent="." instance=ExtResource("1_ovhav")]
+position = Vector2(156, 95)
+
+[node name="Enemy" parent="." instance=ExtResource("3_80746")]
+position = Vector2(556, 268)

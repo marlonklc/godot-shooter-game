@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://yw22645t6a6u"]
+
+[ext_resource type="Script" path="res://scenes/game/crosshair.gd" id="1_x4fuk"]
+[ext_resource type="Texture2D" uid="uid://cujw7ax8c2ag1" path="res://sprites/game/crosshair.png" id="2_vta0d"]
+
+[node name="MarkerCrosshair" type="Marker2D"]
+top_level = true
+z_index = 4096
+script = ExtResource("1_x4fuk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vta0d")

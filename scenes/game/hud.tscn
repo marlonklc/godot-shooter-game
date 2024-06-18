@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://0h8x2hyqri5d"]
+
+[ext_resource type="Texture2D" uid="uid://33jppucepbj" path="res://sprites/game/heart-beat.png" id="1_r58lp"]
+[ext_resource type="Script" path="res://scenes/game/health_bar.gd" id="2_nv8w5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt1pw"]
+bg_color = Color(0, 0.427834, 0.380984, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y21rn"]
+bg_color = Color(0.197358, 0.689916, 0.588561, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthSprite" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(21, 26)
+texture = ExtResource("1_r58lp")
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 41.0
+offset_top = 13.0
+offset_right = 207.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_rt1pw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_y21rn")
+value = 75.0
+show_percentage = false
+script = ExtResource("2_nv8w5")

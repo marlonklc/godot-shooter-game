@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ojqaf5phpcgm"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_fexkj"]
+[ext_resource type="Texture2D" uid="uid://btwsahsysvtu6" path="res://sprites/Knight_02__ATTACK_000.png" id="1_vj67e"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gw44c"]
+radius = 22.0
+height = 72.0
+
+[node name="player" type="CharacterBody2D"]
+floor_stop_on_slope = false
+floor_block_on_wall = false
+script = ExtResource("1_fexkj")
+
+[node name="sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.135, 0.135)
+texture = ExtResource("1_vj67e")
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+position = Vector2(4, -8)
+shape = SubResource("CapsuleShape2D_gw44c")
