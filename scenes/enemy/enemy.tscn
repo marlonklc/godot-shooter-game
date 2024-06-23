@@ -103,7 +103,7 @@ tracks/2/keys = {
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("KillAudio")
+tracks/3/path = NodePath("DeathAudio")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -128,8 +128,7 @@ size = Vector2(41, 42)
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("animation")]
 light_mask = 2
 visibility_layer = 2
-collision_layer = 3
-collision_mask = 2
+collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_jqxwb")
 animation = NodePath("Animation")
@@ -139,8 +138,8 @@ scale = Vector2(0.335, 0.335)
 texture = ExtResource("2_rpelg")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-light_mask = 3
-visibility_layer = 3
+light_mask = 4
+visibility_layer = 4
 shape = SubResource("RectangleShape2D_wts6y")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
@@ -149,14 +148,16 @@ libraries = {
 }
 
 [node name="AreaDamage" type="Area2D" parent="."]
+collision_layer = 4
 
 [node name="Collision" type="CollisionShape2D" parent="AreaDamage"]
+light_mask = 4
+visibility_layer = 4
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_bk4fv")
 
-[node name="KillAudio" type="AudioStreamPlayer" parent="."]
+[node name="DeathAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_52oyy")
-volume_db = -47.004
 pitch_scale = 0.85
 
 [connection signal="area_shape_entered" from="AreaDamage" to="." method="_on_area_damage_area_entered"]

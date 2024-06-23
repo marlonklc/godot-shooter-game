@@ -8,12 +8,10 @@ var damage: int = 15
 @export var animation:AnimationPlayer;
 
 func _physics_process(_delta):
-
+	pass
 	#look_at(player.get_global_position());
-	
-	##velocity = SPEED * _delta;
-	
-	move_and_slide();
+	#velocity = SPEED * _delta;
+	#move_and_slide();
 
 func _on_area_damage_area_entered(_area_rid, area, _area_shape_index, _local_shape_index):
 	if area is Bullet or Granade:

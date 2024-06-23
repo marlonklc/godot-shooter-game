@@ -176,6 +176,7 @@ size = Vector2(36, 67)
 [node name="EnemyShooter" type="CharacterBody2D" node_paths=PackedStringArray("animation")]
 light_mask = 2
 visibility_layer = 2
+collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_1bcqu")
 animation = NodePath("Animation")
@@ -184,6 +185,8 @@ animation = NodePath("Animation")
 texture = ExtResource("1_vwyjh")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+light_mask = 4
+visibility_layer = 4
 position = Vector2(-20, 4.125)
 shape = SubResource("RectangleShape2D_jh73r")
 
@@ -193,8 +196,13 @@ libraries = {
 }
 
 [node name="AreaDamage" type="Area2D" parent="."]
+light_mask = 4
+visibility_layer = 4
+collision_layer = 4
 
 [node name="Collision" type="CollisionShape2D" parent="AreaDamage"]
+light_mask = 4
+visibility_layer = 4
 position = Vector2(-20, 3.5)
 shape = SubResource("RectangleShape2D_mc5vh")
 
@@ -207,7 +215,6 @@ autostart = true
 
 [node name="DeathAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_agipm")
-volume_db = -55.949
 pitch_scale = 0.86
 mix_target = 2
 

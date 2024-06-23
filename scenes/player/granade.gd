@@ -21,10 +21,13 @@ func _ready():
 	
 func _process(_delta):
 	if global_position.distance_to(target_position) < 10.0:
-		animation.play('explosion')
-		await animation.animation_finished
-		queue_free()
-		return
+		play_explosion()
+		
+func play_explosion():
+	animation.play('explosion')
+	await animation.animation_finished
+	queue_free()
+	return
 	
 func _physics_process(delta):
 	if global_position.distance_to(target_position) > 10.0:
@@ -33,6 +36,8 @@ func _physics_process(delta):
 		global_position += direction * speed * delta
 
 func _on_body_entered(body: CharacterBody2D):
-	pass
-	print('pela granada')
 	body.kill()
+
+func _on_timer_timeout():
+	play_explosion()
+	

@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://c5kqsdrq3cvmi" path="res://assets/sounds/shoot-cut.mp3" id="4_g5ebu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3ofnn"]
-radius = 13.1529
+radius = 12.0
 
 [sub_resource type="Animation" id="Animation_ghois"]
 length = 0.001
@@ -274,6 +274,7 @@ _data = {
 radius = 12.0416
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 5
 motion_mode = 1
 floor_stop_on_slope = false
 floor_block_on_wall = false
@@ -285,8 +286,8 @@ rotation = 1.5708
 scale = Vector2(1.035, 1.035)
 texture = ExtResource("2_e33q8")
 
-[node name="collision_shape" type="CollisionShape2D" parent="."]
-position = Vector2(-14, -2)
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-14, -1)
 shape = SubResource("CircleShape2D_3ofnn")
 
 [node name="MarkerShoot" type="Marker2D" parent="."]
@@ -309,27 +310,24 @@ position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
 [node name="DamageArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
+collision_layer = 4
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-position = Vector2(-15, -1)
+[node name="Collision" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(-14, -1)
 shape = SubResource("CircleShape2D_508bq")
 
 [node name="HitAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_f2pkw")
-volume_db = -41.468
 pitch_scale = 0.96
 mix_target = 2
 
 [node name="ShootAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_g5ebu")
-volume_db = -43.443
 mix_target = 2
 
 [node name="DeathAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_lu05t")
-volume_db = -47.392
 pitch_scale = 0.96
 mix_target = 2
 

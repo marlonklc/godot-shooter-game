@@ -7,8 +7,10 @@ var axePath = preload("res://scenes/enemy/axe.tscn")
 @onready var playerNode:CharacterBody2D = get_tree().get_first_node_in_group('player')	
 @export var animation:AnimationPlayer
 
-func _process(_delta):
-	look_at(playerNode.get_global_position())
+func _physics_process(_delta):
+	var direction = playerNode.global_position - global_position
+	var angle = direction.angle()
+	global_rotation = lerp_angle(global_rotation, angle, .03)
 	
 	#move_and_collide(velocity.normalized() * delta * speed)
 
