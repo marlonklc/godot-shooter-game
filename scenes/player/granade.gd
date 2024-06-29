@@ -3,6 +3,7 @@ class_name Granade extends Area2D
 var velocity = Vector2(0, 0)
 var speed = 120.0
 var target_position
+const SAFE_TARGET_POSITION_DISTANCE:float = 10.0
 
 @onready var animation:AnimationPlayer = get_node("AnimationPlayer")
 @onready var rollingAudio:AudioStreamPlayer = get_node("RollingAudio")
@@ -14,16 +15,15 @@ func _ready():
 	var playerNode = get_tree().get_first_node_in_group('player')
 	var markerShoot:Marker2D = playerNode.get_children()[2] # shame on me
 	
-	rotation = playerNode.rotation
 	position = markerShoot.get_global_position()
+	rotation = position.angle_to_point(get_global_mouse_position())
 	
 	target_position = get_global_mouse_position()
 	
 	velocity = get_global_mouse_position() - self.position
 	
 func _process(_delta):
-	print(target_position, global_position)
-	if global_position.distance_to(target_position) < 50.0:
+	if global_position.distance_to(target_position) < SAFE_TARGET_POSITION_DISTANCE:
 		play_explosion()
 		
 func play_explosion():
