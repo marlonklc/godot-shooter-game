@@ -5,9 +5,11 @@ var speed = 120.0
 var target_position
 
 @onready var animation:AnimationPlayer = get_node("AnimationPlayer")
+@onready var rollingAudio:AudioStreamPlayer = get_node("RollingAudio")
 
 func _ready():
 	animation.play('rolling')
+	rollingAudio.play()
 	
 	var playerNode = get_tree().get_first_node_in_group('player')
 	var markerShoot:Marker2D = playerNode.get_children()[2] # shame on me
@@ -20,7 +22,8 @@ func _ready():
 	velocity = get_global_mouse_position() - self.position
 	
 func _process(_delta):
-	if global_position.distance_to(target_position) < 10.0:
+	print(target_position, global_position)
+	if global_position.distance_to(target_position) < 50.0:
 		play_explosion()
 		
 func play_explosion():

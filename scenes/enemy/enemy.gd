@@ -15,12 +15,9 @@ func _physics_process(_delta):
 
 func _on_area_damage_area_entered(_area_rid, area, _area_shape_index, _local_shape_index):
 	if area is Bullet or Granade:
-		print('pela area')
-		print((area as Area2D).get_parent().name)
 		kill()
 
 func kill():
-	print('morri')
 	animation.play("kill");
 	await animation.animation_finished;
 	queue_free();
