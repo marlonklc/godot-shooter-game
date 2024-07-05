@@ -15,12 +15,12 @@ func _ready():
 	var playerNode = get_tree().get_first_node_in_group('player')
 	var markerShoot:Marker2D = playerNode.get_children()[2] # shame on me
 	
-	position = markerShoot.get_global_position()
+	global_position = markerShoot.get_global_position()
 	rotation = position.angle_to_point(get_global_mouse_position())
 	
 	target_position = get_global_mouse_position()
 	
-	velocity = get_global_mouse_position() - self.position
+	velocity = get_global_mouse_position() - position
 	
 func _process(_delta):
 	if global_position.distance_to(target_position) < SAFE_TARGET_POSITION_DISTANCE:

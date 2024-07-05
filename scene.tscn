@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://crtjpfisfrjnc"]
+[gd_scene load_steps=8 format=3 uid="uid://crtjpfisfrjnc"]
 
 [ext_resource type="Script" path="res://scene.gd" id="1_nilrj"]
 [ext_resource type="PackedScene" uid="uid://ojqaf5phpcgm" path="res://scenes/player/player.tscn" id="1_ovhav"]
 [ext_resource type="Texture2D" uid="uid://b0n865tnnlomj" path="res://sprites/seamless-green-grass-texture-with-old-stone-tiles-vector.jpg" id="1_w51da"]
 [ext_resource type="PackedScene" uid="uid://yw22645t6a6u" path="res://scenes/game/crosshair.tscn" id="4_m3fv3"]
+[ext_resource type="PackedScene" uid="uid://pwkq0low4mvw" path="res://scenes/enemy/enemy_shooter.tscn" id="7_0oj72"]
 [ext_resource type="PackedScene" uid="uid://bs44o6llqyqhw" path="res://scenes/menu/game_pause.tscn" id="7_jl1hn"]
 [ext_resource type="PackedScene" uid="uid://0h8x2hyqri5d" path="res://scenes/game/hud.tscn" id="8_8etny"]
 
@@ -29,5 +30,8 @@ autostart = true
 visible = false
 
 [node name="Hud" parent="." instance=ExtResource("8_8etny")]
+
+[node name="EnemyShooter" parent="." instance=ExtResource("7_0oj72")]
+position = Vector2(408, 124)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

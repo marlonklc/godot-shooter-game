@@ -2,7 +2,7 @@ class_name Enemy extends CharacterBody2D;
 
 const SPEED = 300.0;
 
-var damage: int = 15
+var damage:int = 15
 
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player');
 @export var animation:AnimationPlayer;

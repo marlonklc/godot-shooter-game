@@ -6,7 +6,7 @@ var speed = 900.0
 
 func _ready():	
 	var playerNode = get_tree().get_first_node_in_group('player')
-	var markerShoot:Marker2D = playerNode.get_children()[2] # shame on me
+	var markerShoot:Marker2D = playerNode.get_node('MarkerShoot')
 	
 	self.rotation = playerNode.rotation
 	self.position = markerShoot.get_global_position()

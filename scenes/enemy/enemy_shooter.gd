@@ -1,31 +1,44 @@
-class_name EnemyShooter extends CharacterBody2D
+class_name EnemyShooter extends CharacterBody2D 
 
-var speed: float = 500.0
-var damage: int = 39
-
-var axePath = preload("res://scenes/enemy/axe.tscn")
-@onready var playerNode:CharacterBody2D = get_tree().get_first_node_in_group('player')	
+@onready var playerNode:CharacterBody2D = get_tree().get_first_node_in_group('player')
+@export var timer:Timer
 @export var animation:AnimationPlayer
 
+const SPEED: float = 80.0
+const damage: int = 39
+const DISTANCE_ATTACK: float = 220.0
+
+const axePath = preload("res://scenes/enemy/axe.tscn")
+
 func _physics_process(_delta):
-	var direction = playerNode.global_position - global_position
-	var angle = direction.angle()
-	global_rotation = lerp_angle(global_rotation, angle, .03)
+	var direction = global_position.direction_to(playerNode.global_position)
 	
-	#move_and_collide(velocity.normalized() * delta * speed)
+	var angle = direction.angle()
+	rotation = lerp_angle(global_rotation, angle, .03)
+	
+	if global_position.distance_to(playerNode.global_position) > DISTANCE_ATTACK:
+		velocity = direction * SPEED
+		move_and_slide()
+		
+		timer.stop()
+	else:
+		if timer.time_left <= 0:
+			timer.start()
+	
+	#look_at(get_global_mouse_position())
 
 func _on_timer_timeout():
-	pass
-	#print('shooot')
-	#var axeSpawn = axePath.instantiate()
+	var axeSpawn = axePath.instantiate()
+	axeSpawn.set_enemy(self)
 	
-	#get_node('.').get_parent().add_child(axeSpawn)
+	get_parent().add_child(axeSpawn)
 
 func _on_area_damage_area_entered(_area_rid, area, _area_shape_index, _deathAudiolocal_shape_index):
 	if area is Bullet or Granade:
 		kill()
 
 func kill():
+	timer.stop()
 	animation.play('kill')
 	await animation.animation_finished
 	queue_free()

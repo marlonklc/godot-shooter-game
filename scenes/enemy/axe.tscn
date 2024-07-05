@@ -1,29 +1,123 @@
-[gd_scene load_steps=4 format=3 uid="uid://bui0tf6tnqyoa"]
+[gd_scene load_steps=10 format=3 uid="uid://bui0tf6tnqyoa"]
 
 [ext_resource type="Script" path="res://scenes/enemy/axe.gd" id="1_f3unq"]
 [ext_resource type="Texture2D" uid="uid://dk8nr5sbhgwah" path="res://sprites/enemy/axe_small.png" id="1_sya0w"]
+[ext_resource type="AudioStream" uid="uid://bgc8igug3nsx3" path="res://assets/sounds/axe-throw.mp3" id="3_2c0qg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3pfb8"]
 radius = 11.0454
 
-[node name="AxeThrow" type="RigidBody2D"]
-collision_layer = 2
-collision_mask = 2
-mass = 3.68
+[sub_resource type="CircleShape2D" id="CircleShape2D_rowye"]
+radius = 11.0454
+
+[sub_resource type="Animation" id="Animation_tloig"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5sjnq"]
+resource_name = "throwing"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ThrowingAudio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_lsool"]
+resource_name = "hitted"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t1wpd"]
+_data = {
+"RESET": SubResource("Animation_tloig"),
+"hitted": SubResource("Animation_lsool"),
+"throwing": SubResource("Animation_5sjnq")
+}
+
+[node name="AxeThrow" type="RigidBody2D" node_paths=PackedStringArray("animation")]
+collision_layer = 4
+mass = 5.24
 gravity_scale = 0.0
 script = ExtResource("1_f3unq")
+animation = NodePath("AnimationPlayer")
 
-[node name="sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_sya0w")
 
-[node name="collision_shape" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
+light_mask = 4
+visibility_layer = 4
 position = Vector2(3, -3)
 shape = SubResource("CircleShape2D_3pfb8")
 one_way_collision_margin = 0.0
 
+[node name="DamageArea" type="Area2D" parent="."]
+light_mask = 4
+visibility_layer = 4
+collision_layer = 4
+
+[node name="Collision" type="CollisionShape2D" parent="DamageArea"]
+light_mask = 4
+visibility_layer = 4
+position = Vector2(3, -3)
+shape = SubResource("CircleShape2D_rowye")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t1wpd")
+}
+
 [node name="Timer" type="Timer" parent="."]
-wait_time = 1.972
+wait_time = 2.759
 one_shot = true
 autostart = true
 
+[node name="ThrowingAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_2c0qg")
+pitch_scale = 0.87
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
