@@ -5,7 +5,7 @@ class_name EnemyShooter extends CharacterBody2D
 @export var animation:AnimationPlayer
 
 const SPEED: float = 80.0
-const damage: int = 39
+const damage: int = 10
 const DISTANCE_ATTACK: float = 220.0
 
 const axePath = preload("res://scenes/enemy/axe.tscn")
@@ -35,10 +35,10 @@ func _on_timer_timeout():
 
 func _on_area_damage_area_entered(_area_rid, area, _area_shape_index, _deathAudiolocal_shape_index):
 	if area is Bullet or Granade:
-		kill()
+		death()
 
-func kill():
+func death():
 	timer.stop()
-	animation.play('kill')
+	animation.play('death')
 	await animation.animation_finished
 	queue_free()

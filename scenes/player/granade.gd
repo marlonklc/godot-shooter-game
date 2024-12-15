@@ -39,7 +39,7 @@ func _physics_process(delta):
 		global_position += direction * speed * delta
 
 func _on_body_entered(body: CharacterBody2D):
-	body.kill()
+	body.death()
 
 func _on_timer_timeout():
 	play_explosion()

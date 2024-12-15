@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://c5kqsdrq3cvmi" path="res://assets/sounds/shoot-cut.mp3" id="4_g5ebu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3ofnn"]
-radius = 12.0
+radius = 11.0
 
 [sub_resource type="Animation" id="Animation_ghois"]
 length = 0.001

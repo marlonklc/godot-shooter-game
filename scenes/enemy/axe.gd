@@ -4,7 +4,7 @@ extends RigidBody2D
 @export var animation: AnimationPlayer
 
 const SPEED: float = 125.0
-const damage: int = 15
+const damage: int = 25
 var direction: Vector2
 var canMove: bool = true
 
@@ -30,7 +30,7 @@ func _on_timer_timeout():
 	#await animation.animation_finished
 	queue_free()
 
-func _on_damage_area_body_entered(body):
+func _on_damage_area_body_entered(_body):
 	canMove = false
 	animation.play('hitted')
 	await animation.animation_finished

@@ -9,17 +9,20 @@ const granadePath = preload("res://scenes/player/granade.tscn")
 @onready var shootAudio:AudioStreamPlayer = get_node('ShootAudio')
 @onready var enemyBase: EnemyBase
 
+var canAction:bool = true
+
 func _ready():
 	enemyBase = EnemyGreen.new()
 	enemyBase.execute()
 	PlayerStats.connect("died", death)
 	
 func death():
+	canAction = false
 	set_physics_process(false)
 	animation.play('death')
 	await animation.animation_finished
-	PlayerStats.reset()
 	get_tree().reload_current_scene()
+	PlayerStats.reset()
 
 func _physics_process(_delta):
 	handle_movement()
@@ -36,6 +39,8 @@ func handle_rotation():
 	global_rotation = lerp_angle(global_rotation, angle, .09)
 
 func _input(event):
+	if not canAction: return
+		
 	if event.is_action_pressed("click"):
 		shoot()
 	
